@@ -1,4 +1,5 @@
 local ShapeRenderer = require "src.systems.ShapeRenderer"
+local PhysicsEngine = require "src.systems.PhysicsEngine"
 --[[
     DEPENDENCIES
     JELLY ENGINE RPG
@@ -20,7 +21,9 @@ Entity = require 'src/Entity'
 Component = require 'src/Component'
 
 Transform = require 'src/components/Transform'
+Physics = require 'src/components/Physics'
 Shape = require 'src/components/Shape'
 Script = require 'src/components/Script'
 
 ShapeRenderer = require 'src/systems/ShapeRenderer'
+PhysicsEngine = require 'src/systems/PhysicsEngine'

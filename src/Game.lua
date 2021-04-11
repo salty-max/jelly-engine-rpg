@@ -1,4 +1,5 @@
 local ShapeRenderer = require "src.systems.ShapeRenderer"
+local PhysicsEngine = require "src.systems.PhysicsEngine"
 --[[
     GAME PROTOTYPE
     JELLY ENGINE RPG
@@ -13,9 +14,12 @@ return function()
 
     function Game:init()
         local shapeRenderer = ShapeRenderer(self.entityManager)
+        local physicsEngine = PhysicsEngine(self.entityManager)
+
         local player = self.entityManager:createEntity {
             { Transform, { x = 8, y = 8, width = 8, height = 8 } },
-            { Shape, { type = 'rect', color = { 1, 0, 0, 1 }, fill = 'fill' } }
+            { Shape, { type = 'rect', color = { 1, 0, 0, 1 }, fill = 'fill' } },
+            { Physics, { dx = PLAYER_WALK_SPEED, dy = PLAYER_WALK_SPEED } }
         }
     end
 
