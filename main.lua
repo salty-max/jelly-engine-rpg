@@ -5,6 +5,7 @@
     https://github.com/salty-max
 ]]
 
+io.stdout:setvbuf("no")
 require 'src/Dependencies'
 
 function love.load()
