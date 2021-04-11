@@ -1,0 +1,14 @@
+--[[
+    GLOBAL VARIABLES
+    JELLY ENGINE RPG
+    Maxime Blanc
+    https://github.com/salty-max
+]]
+
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 640
+
+VIRTUAL_WIDTH = 128
+VIRTUAL_HEIGHT = 128
+
+TITLE = 'JELLY ENGINE'
