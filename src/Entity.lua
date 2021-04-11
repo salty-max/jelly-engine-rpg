@@ -10,7 +10,9 @@ return function(id)
 
     local Entity = {
         __id = id,
-        components = {}
+        components = {},
+        loaded = false,
+        remove = false
     }
 
     function Entity:addComponent(component)
@@ -20,6 +22,16 @@ return function(id)
     function Entity:getComponent(id)
         return self.components[id]
     end
+
+    function Entity:hasComponent(id)
+        return self.components[id] ~= nil
+    end
+
+    -- return setmetatable(Entity, {
+    --     __index = function(self, key)
+    --         return self.components[key]
+    --     end
+    -- })
 
     return Entity
 end

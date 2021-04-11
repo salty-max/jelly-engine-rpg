@@ -21,11 +21,7 @@ function love.load()
     })
 
     Game = Game()
-    Manager = Manager()
-
-    local player = Manager:createEntity {
-        {Transform, { x = 8, y = 8, width = 8, height = 8 }}
-    }
+    Game:init()
 
     love.keyboard.keysPressed = {}
 end
@@ -43,11 +39,12 @@ function love.keyboard.wasPressed(key)
 end
 
 function love.update(dt)
+    Game:update(dt)
     love.keyboard.keysPressed = {}
 end
 
 function love.draw()
     Push:start()
-    love.graphics.rectangle('fill', 0, 0, 32, 32)
+    Game:draw()
     Push:finish()
 end

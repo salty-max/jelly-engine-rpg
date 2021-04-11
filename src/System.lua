@@ -12,6 +12,14 @@ return function(targets)
         targets = targets
     }
 
+    function System:matches(entity)
+        for _,target in pairs(self.targets) do
+            if not entity:hasComponent(target) then return false end
+        end
+
+        return true
+    end
+
     function System:load(self, entity) end
 
     function System:update(self, entity, dt) end

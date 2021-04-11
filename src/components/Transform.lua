@@ -12,6 +12,9 @@ return function(data)
     Transform.y = data.y
     Transform.width = data.width
     Transform.height = data.height
+    Transform.rotation = data.rotation or 0
+    Transform.scaleX = data.scaleX or 1
+    Transform.scaleY = data.scaleY or 1
 
     return Transform
 end

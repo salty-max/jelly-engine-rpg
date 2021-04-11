@@ -6,6 +6,8 @@
 ]]
 
 return function(id)
+    assert(type(id) == 'string', 'Component id must be a string')
+    
     local Component = {
         __id = id
     }

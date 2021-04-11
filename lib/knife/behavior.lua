@@ -1,4 +1,4 @@
--- behavior.lua -- a state manager
+-- behavior.lua -- a state EntityManager
 
 -- internal/external api
 
