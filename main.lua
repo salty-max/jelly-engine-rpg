@@ -12,11 +12,20 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle(TITLE)
 
+    math.randomseed(os.time())
+
     Push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         vsync = true,
         resizable = true,
         fullscreen = false
     })
+
+    Game = Game()
+    Manager = Manager()
+
+    local player = Manager:createEntity {
+        {Transform, { x = 8, y = 8, width = 8, height = 8 }}
+    }
 
     love.keyboard.keysPressed = {}
 end
@@ -39,5 +48,6 @@ end
 
 function love.draw()
     Push:start()
+    love.graphics.rectangle('fill', 0, 0, 32, 32)
     Push:finish()
 end
