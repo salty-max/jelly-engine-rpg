@@ -6,6 +6,29 @@
     https://github.com/salty-max
 ]]
 
+function GenerateQuads(atlas, tilewidth, tileheight)
+    local sheet = {}
+    local sheetwidth = atlas:getWidth() / tilewidth
+    local sheetheight = atlas:getHeight() / tileheight
+    local sheetcounter = 1
+    local x = 0
+    local y = 0
+
+    for row = 1, sheetheight do
+        for col = 1, sheetwidth do
+            local quad = love.graphics.newQuad(x, y, tilewidth, tileheight, atlas:getDimensions())
+            table.insert(sheet, quad)
+            sheetcounter = sheetcounter + 1
+
+            x = x + tilewidth
+        end
+
+        y = y + tileheight
+    end
+
+    return sheet
+end
+
 function uuid()
     local seed={'e','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'}
     local tb={}

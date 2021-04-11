@@ -15,6 +15,8 @@ return function(data)
     Transform.rotation = data.rotation or 0
     Transform.scaleX = data.scaleX or 1
     Transform.scaleY = data.scaleY or 1
+    Transform.offsetX = Transform.width * 0.5
+    Transform.offsetY = Transform.height * 0.5
 
     function Transform:center()
         return self.x + self.width * 0.5

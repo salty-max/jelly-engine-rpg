@@ -1,40 +1,38 @@
 --[[
-    EntityManager PROTOTYPE
+    Manager PROTOTYPE
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
 return function()
-    local EntityManager = {
+    local Manager = {
         entities = {},
         systems = {}
     }
 
-    function EntityManager:createSystem(targets)
-        local system = System(targets)
-        
-        table.insert(self.systems, system)
-        
-        return system
+    function Manager:assemble(systems)
+        for _,system in pairs(systems) do
+            table.insert(self.systems, system)
+        end
     end
 
-    function EntityManager:createEntity(components)
-        assert(type(components), 'EntityManager:createEntity -> requires a table of tables')
+    function Manager:createEntity(components)
+        assert(type(components), 'Manager:createEntity -> requires a table of tables')
 
         local entity = Entity(uuid())
 
         for _,component in pairs(components) do
             local fn = component[1]
 
-            assert(type(fn) == 'function', 'EntityManager:createEntity -> first argument must be a component constructor')
+            assert(type(fn) == 'function', 'Manager:createEntity -> first argument must be a component constructor')
 
             if #component == 1 then
                 entity:addComponent(fn())
             else
                 local props = component[2]
 
-                assert(type(props) == 'table', 'EntityManager:createEntity -> Component constructor requires a table of properties')
+                assert(type(props) == 'table', 'Manager:createEntity -> Component constructor requires a table of properties')
 
                 entity:addComponent(fn(props))
             end
@@ -45,7 +43,7 @@ return function()
         return entity
     end
 
-    function EntityManager:update(dt)
+    function Manager:update(dt)
         for _,entity in pairs(self.entities) do
             for _,system in pairs(self.systems) do
                 if system:matches(entity) then
@@ -61,7 +59,7 @@ return function()
         end
     end
 
-    function EntityManager:draw()
+    function Manager:draw()
         for _,entity in pairs(self.entities) do
             for _,system in pairs(self.systems) do
                 if system:matches(entity) then
@@ -71,5 +69,5 @@ return function()
         end
     end
 
-    return EntityManager
+    return Manager
 end

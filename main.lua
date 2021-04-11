@@ -6,10 +6,11 @@
 ]]
 
 io.stdout:setvbuf("no")
+
+love.graphics.setDefaultFilter('nearest', 'nearest')
 require 'src/Dependencies'
 
 function love.load()
-    love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle(TITLE)
 
     math.randomseed(os.time())

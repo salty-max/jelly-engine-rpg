@@ -1,6 +1,3 @@
-local ShapeRenderer = require "src.systems.ShapeRenderer"
-local PhysicsEngine = require "src.systems.PhysicsEngine"
-local PlayerController = require "src.systems.PlayerController"
 --[[
     GAME PROTOTYPE
     JELLY ENGINE RPG
@@ -10,28 +7,30 @@ local PlayerController = require "src.systems.PlayerController"
 
 return function()
     local Game = {
-        entityManager = EntityManager(),
+        Manager = Manager(),
     }
 
     function Game:init()
-        local shapeRenderer = ShapeRenderer(self.entityManager)
-        local physicsEngine = PhysicsEngine(self.entityManager)
-        local playerController = PlayerController(self.entityManager)
+        self.Manager:assemble {
+            SpriteRenderer(),
+            PhysicsEngine(),
+            PlayerController(),
+        }
 
-        local player = self.entityManager:createEntity {
-            { Transform, { x = 8, y = 8, width = 8, height = 8 } },
-            { Shape, { type = 'rect', color = { 1, 0, 0, 1 }, fill = 'fill' } },
+        local player = self.Manager:createEntity {
+            { Transform, { x = 8, y = 8, width = 24, height = 24 } },
+            { Sprite, { texture = 'creatures', frame = 3 } },
             { Physics, { speed = PLAYER_WALK_SPEED, friction = 0.04 } },
             { Player },
         }
     end
 
     function Game:update(dt)
-        self.entityManager:update(dt)
+        self.Manager:update(dt)
     end
 
     function Game:draw()
-        self.entityManager:draw()
+        self.Manager:draw()
     end
 
     return Game

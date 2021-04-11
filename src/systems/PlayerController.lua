@@ -5,8 +5,8 @@
     https://github.com/salty-max
 ]]
 
-return function(entityManager)
-    local PlayerController = entityManager:createSystem{ 'transform', 'physics' }
+return function()
+    local PlayerController = System { 'transform', 'physics' }
     
     function PlayerController:update(entity, dt)
         local physics = entity:getComponent 'physics'
@@ -14,8 +14,10 @@ return function(entityManager)
 
         if love.keyboard.isDown('left') then
             physics.dx = physics.dx - physics.speed * dt
+            transform.scaleX = 1
         elseif love.keyboard.isDown('right') then
             physics.dx = physics.dx + physics.speed * dt
+            transform.scaleX = -1
         end
 
         if love.keyboard.isDown('up') then

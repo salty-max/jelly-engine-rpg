@@ -5,8 +5,8 @@
     https://github.com/salty-max
 ]]
 
-return function(entityManager)
-    local PhysicsEngine = entityManager:createSystem { 'transform', 'physics' }
+return function()
+    local PhysicsEngine = System { 'transform', 'physics' }
 
     function PhysicsEngine:update(entity, dt)
         local physics = entity:getComponent 'physics'

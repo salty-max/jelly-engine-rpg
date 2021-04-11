@@ -5,8 +5,8 @@
     https://github.com/salty-max
 ]]
 
-return function(entityManager)
-    local ShapeRenderer = entityManager:createSystem { 'transform', 'shape' }
+return function()
+    local ShapeRenderer = System { 'transform', 'shape' }
 
     function ShapeRenderer:draw(entity)
         local transform = entity:getComponent('transform')
