@@ -16,5 +16,19 @@ return function(data)
     Transform.scaleX = data.scaleX or 1
     Transform.scaleY = data.scaleY or 1
 
+    function Transform:center()
+        return self.x + self.width * 0.5
+    end
+
+    function Transform:contains(other)
+        assert(type(other) == 'table')
+        assert(other.__id == 'transform')
+
+        return self.x + self.width > other.x and
+            self.x < other.x + other.width and
+            self.y + self.height > other.y and
+            self.y < other.x + other.height
+    end
+
     return Transform
 end
