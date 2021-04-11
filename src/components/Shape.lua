@@ -1,16 +1,17 @@
 --[[
-    SHAPE COMPONENT PROTOTYPE
+    SHAPE COMPONENT CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function(data)
-    local Shape = Component('shape')
+Shape = Class{__includes = Component}
 
-    Shape.type = data.type
-    Shape.color = data.color or { 1, 1, 1 ,1 }
-    Shape.fill = data.fill or 'line'
-
-    return Shape
+function Shape:init(data)
+    assert(data.type, 'Shape:init -> type must be specified')
+    Component.init(self, 'shape')
+    self.type = data.type
+    self.color = data.color or { 1, 1, 1 ,1 }
+    self.filled = data.filled or false
+    self.radius = data.radius or 0
 end

@@ -1,16 +1,13 @@
 --[[
-    COMPONENT PROTOTYPE
+    COMPONENT CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function(id)
-    assert(type(id) == 'string', 'Component id must be a string')
-    
-    local Component = {
-        __id = id
-    }
+Component = Class{}
 
-    return Component
+function Component:init(id)
+    assert(type(id) == 'string', 'Component id must be a string')
+    self.id = id
 end

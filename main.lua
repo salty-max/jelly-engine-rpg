@@ -21,8 +21,10 @@ function love.load()
         fullscreen = false
     })
 
-    Game = Game()
-    Game:init()
+    gSceneManager = SceneManager {
+        ['play'] = function() return PlayScene() end
+    }
+    gSceneManager:change('play')
 
     love.keyboard.keysPressed = {}
 end
@@ -40,12 +42,12 @@ function love.keyboard.wasPressed(key)
 end
 
 function love.update(dt)
-    Game:update(dt)
+    gSceneManager:update(dt)
     love.keyboard.keysPressed = {}
 end
 
 function love.draw()
     Push:start()
-    Game:draw()
+    gSceneManager:draw()
     Push:finish()
 end

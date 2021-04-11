@@ -5,11 +5,10 @@
     https://github.com/salty-max
 ]]
 
-return function(data)
-    local Sprite = Component('sprite')
+Sprite = Class{__includes = Component}
 
-    Sprite.texture = data.texture
-    Sprite.frame = data.frame
-
-    return Sprite
+function Sprite:init(data)
+    Component.init(self, 'sprite')
+    self.texture = data.texture
+    self.frame = data.frame
 end

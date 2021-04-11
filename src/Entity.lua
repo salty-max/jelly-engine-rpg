@@ -1,37 +1,28 @@
 --[[
-    ENTITY PROTOTYPE
+    ENTITY CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function(id)
-    assert(id, 'Entity constructor needs an identifier')
+Entity = Class {}
 
-    local Entity = {
-        __id = id,
-        components = {},
-        loaded = false,
-        remove = false
-    }
+function Entity:init(id)
+    assert(type(id) == 'string', 'Entity:init -> id must be a string')
+    self.id = id
+    self.components = {}
+    self.loaded = false
+    self.remove = false
+end
 
-    function Entity:addComponent(component)
-        self.components[component.__id] = component
-    end
+function Entity:addComponent(component)
+    self.components[component.id] = component
+end
 
-    function Entity:getComponent(id)
-        return self.components[id]
-    end
+function Entity:getComponent(id)
+    return self.components[id]
+end
 
-    function Entity:hasComponent(id)
-        return self.components[id] ~= nil
-    end
-
-    -- return setmetatable(Entity, {
-    --     __index = function(self, key)
-    --         return self.components[key]
-    --     end
-    -- })
-
-    return Entity
+function Entity:hasComponent(id)
+    return self.components[id] ~= nil
 end

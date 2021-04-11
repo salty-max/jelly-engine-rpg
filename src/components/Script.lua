@@ -1,14 +1,13 @@
 --[[
-    SCRIPT COMPONENT PROTOTYPE
+    SCRIPT COMPONENT CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function(fn)
-    local Script = {
-        fn = fn
-    }
+Script = Class{__includes = Component}
 
-    return Script
+function Script:init(data)
+    Component.init(self, 'script')
+    self.fn = data.fn
 end

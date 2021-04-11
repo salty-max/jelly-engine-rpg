@@ -1,73 +1,59 @@
 --[[
-    Manager PROTOTYPE
+    MANAGER CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function()
-    local Manager = {
-        entities = {},
-        systems = {}
-    }
+Manager = Class{}
 
-    function Manager:assemble(systems)
-        for _,system in pairs(systems) do
-            table.insert(self.systems, system)
-        end
+function Manager:init()
+    self.entities = {}
+    self.systems = {}
+end
+
+function Manager:assemble(systems)
+    for _,system in pairs(systems) do
+        table.insert(self.systems, system)
+    end
+end
+
+function Manager:createEntity(components)
+    assert(type(components), 'Manager:createEntity -> requires a table of tables')
+
+    local entity = Entity(uuid())
+
+    for _,component in pairs(components) do
+        entity:addComponent(component)
     end
 
-    function Manager:createEntity(components)
-        assert(type(components), 'Manager:createEntity -> requires a table of tables')
+    table.insert(self.entities, entity)
 
-        local entity = Entity(uuid())
+    return entity
+end
 
-        for _,component in pairs(components) do
-            local fn = component[1]
+function Manager:update(dt)
+    for _,entity in pairs(self.entities) do
+        for _,system in pairs(self.systems) do
+            if system:matches(entity) then
+                system:update(entity, dt)
 
-            assert(type(fn) == 'function', 'Manager:createEntity -> first argument must be a component constructor')
-
-            if #component == 1 then
-                entity:addComponent(fn())
-            else
-                local props = component[2]
-
-                assert(type(props) == 'table', 'Manager:createEntity -> Component constructor requires a table of properties')
-
-                entity:addComponent(fn(props))
-            end
-        end
-
-        table.insert(self.entities, entity)
-
-        return entity
-    end
-
-    function Manager:update(dt)
-        for _,entity in pairs(self.entities) do
-            for _,system in pairs(self.systems) do
-                if system:matches(entity) then
-                    system:update(entity, dt)
-
-                    if not entity.loaded then
-                        system:load(entity)
-                    end
-                end
-            end
-
-            entity.loaded = true
-        end
-    end
-
-    function Manager:draw()
-        for _,entity in pairs(self.entities) do
-            for _,system in pairs(self.systems) do
-                if system:matches(entity) then
-                    system:draw(entity)
+                if not entity.loaded then
+                    system:load(entity)
                 end
             end
         end
-    end
 
-    return Manager
+        entity.loaded = true
+    end
+end
+
+function Manager:draw()
+    for _,entity in pairs(self.entities) do
+        for _,system in pairs(self.systems) do
+            if system:matches(entity) then
+                system:draw(entity)
+            end
+        end
+    end
 end

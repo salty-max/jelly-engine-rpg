@@ -1,32 +1,30 @@
 --[[
-    SYSTEM PROTOTYPE
+    SYSTEM CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function(targets)
-    assert(type(targets) == 'table', 'Filter constructor requires a table of components')
-    
-    local System = {
-        targets = targets
-    }
+System = Class{}
 
-    function System:matches(entity)
-        for _,target in pairs(self.targets) do
-            if not entity:hasComponent(target) then return false end
-        end
+function System:init(targets)
+    assert(type(targets) == 'table', 'System:init -> targets must be a table of components')
 
-        return true
+    self.targets = targets
+end
+
+function System:matches(entity)
+    for _,target in pairs(self.targets) do
+        if not entity:hasComponent(target) then return false end
     end
 
-    function System:load(self, entity) end
-
-    function System:update(self, entity, dt) end
-
-    function System:draw(self, entity) end
-
-    function System:destroy(self, entity) end
-
-    return System
+    return true
 end
+
+function System:load(entity) end
+
+function System:update(entity, dt) end
+
+function System:draw(entity) end
+
+function System:destroy(entity) end

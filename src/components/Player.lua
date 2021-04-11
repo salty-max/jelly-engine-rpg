@@ -1,12 +1,12 @@
 --[[
-    PLAYER COMPONENT PROTOTYPE
+    PLAYER COMPONENT CLASS
     JELLY ENGINE RPG
     Maxime Blanc
     https://github.com/salty-max
 ]]
 
-return function()
-    local Player = Component('player')
+Player = Class{__includes = Component}
 
-    return Player
+function Player:init(data)
+    Component.init(self, 'player')
 end
